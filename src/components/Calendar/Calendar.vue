@@ -7,9 +7,17 @@
     <div class="calendar__main">
       <span class="calendar__title">{{ translationsVerifed["dates"] }}:</span>
       <div class="calendar__fields-box">
-        <div class="calendar__trigger"></div>
+        <div class="calendar__trigger">
+          <button @click="isCalendarCardActive = !isCalendarCardActive">
+            {{ translationsVerifed["checkIn"] }}
+          </button>
+          <i class="fas fa-arrow-right"></i>
+          <button @click="isCalendarCardActive = !isCalendarCardActive">
+            {{ translationsVerifed["checkOut"] }}
+          </button>
+        </div>
+        <CalendarCard v-show="isCalendarCardActive" />
       </div>
-			<CalendarCard />
     </div>
   </div>
 </template>
@@ -21,6 +29,11 @@ import StarsRating from "@/components/StarsRating/StarsRating.vue";
 export default {
 	components: { CalendarCard, StarsRating },
   name: "Calendar",
+	data() {
+    return {
+      isCalendarCardActive: false,
+    };
+  },
   props: {
     currency: {
       type: String,
@@ -97,6 +110,23 @@ export default {
     border: $border-basic;
     display: flex;
     align-items: center;
+
+    button {
+      @include button-reset();
+      margin: $btn-margin;
+      padding: $btn-padding;
+      font-weight: $weight-text-300;
+      color: $color-text-heading;
+      flex-grow: 1;
+      outline: none;
+      text-align: left;
+      border-radius: 3px;
+      transition: background-color 0.3s ease-in-out;
+
+      &:hover {
+        background-color: $aqua;
+      }
+    }
   }
 }
 </style>
