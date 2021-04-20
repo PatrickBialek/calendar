@@ -10,3 +10,26 @@ $light-gray: #FFFFFF;
 $ming: #3C7B80;
 $onahau: #C3FEF8;
 $silver: #CCCCCC;
+
+// generic
+$border-basic: $alto 1px solid;
+$box-shadow-basic: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+$color-text-heading: #464646;
+
+// typography weights
+$weight-text-300: 300;
+$weight-text-500: 500;
+$weight-text-700: 700;
+$weight-text-900: 900;
+
+// typography sizes
+$size-text-stars: 1rem;
+$size-text-tiny: 1.2rem;
+$size-text-heading: 1.8rem;
+
+// paddings and margins
+$basic-padding: 2rem;
+
+$tiny-margin: 1rem;
+$medium-margin: 2rem;

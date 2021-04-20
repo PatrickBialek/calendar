@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Calendar />
+    <Calendar currency="zł" :price="298" />
   </div>
 </template>
 
