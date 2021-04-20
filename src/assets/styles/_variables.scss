@@ -15,7 +15,11 @@ $silver: #CCCCCC;
 $border-basic: $alto 1px solid;
 $box-shadow-basic: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
+// typography colors
+$color-text-weekname: #d5d9df;
+$color-text-primary: #848484;
 $color-text-heading: #464646;
+$color-blocked: #DBDBDB;
 
 // typography weights
 $weight-text-300: 300;
@@ -29,7 +33,11 @@ $size-text-tiny: 1.2rem;
 $size-text-heading: 1.8rem;
 
 // paddings and margins
+$btn-padding: .5rem;
+$tiny-padding: 1rem;
+$small-padding: 1.5rem;
 $basic-padding: 2rem;
 
+$btn-margin: .5rem;
 $tiny-margin: 1rem;
 $medium-margin: 2rem;

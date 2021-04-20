@@ -9,15 +9,17 @@
       <div class="calendar__fields-box">
         <div class="calendar__trigger"></div>
       </div>
+			<CalendarCard />
     </div>
   </div>
 </template>
 
 <script>
+import CalendarCard from "./CalendarCard.vue";
 import StarsRating from "@/components/StarsRating/StarsRating.vue";
 
 export default {
-	components: { StarsRating },
+	components: { CalendarCard, StarsRating },
   name: "Calendar",
   props: {
     currency: {
