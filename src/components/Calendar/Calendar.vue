@@ -2,6 +2,7 @@
   <div class="calendar">
     <div class="calendar__heading">
       <span class="calendar__price">{{ price }} {{ currency }}</span>
+			<StarsRating :rating="3.55" />
     </div>
     <div class="calendar__main">
       <span class="calendar__title">{{ translationsVerifed["dates"] }}:</span>
@@ -13,7 +14,10 @@
 </template>
 
 <script>
+import StarsRating from "@/components/StarsRating/StarsRating.vue";
+
 export default {
+	components: { StarsRating },
   name: "Calendar",
   props: {
     currency: {
