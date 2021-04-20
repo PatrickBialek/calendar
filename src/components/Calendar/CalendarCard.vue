@@ -2,12 +2,13 @@
   <div class="calendar-card">
     <div class="calendar-card__content">
       <div class="calendar-card__heading">
-        <button>
+        <button @click="changeMonth(-1)">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h3 class="heading-primary">
+          {{ currentMonthName }} {{ currentYear }}
         </h3>
-        <button>
+        <button @click="changeMonth(1)">
           <i class="fas fa-arrow-right"></i>
         </button>
       </div>
@@ -30,6 +31,8 @@
               {{ lastMonthLength - indexOfFirstDay + 1 + i }}
             </span>
             <span
+              @click="availabilityChecker($event.target, i)"
+              :data-available="isShouldDisabled(i)"
               v-for="(i, index) in currentMonthLength"
               :key="index + Math.random()"
               class="calendar-card__single-date"
@@ -86,7 +89,9 @@ export default {
         "October",
         "November",
         "December",
-      ]
+      ],
+      checkInDay: "",
+      checkOutDay: "",
     };
   },
   created() {
@@ -95,6 +100,99 @@ export default {
     this.prepareDate();
   },
   methods: {
+    availabilityChecker(event, i) {
+      event.dataset.available !== "date-not-available"
+        ? this.bookingHandler(event, i)
+        : "";
+    },
+    bookingHandler(event, i) {
+      if (this.checkInDay === "") {
+        const oldCheckInDate = document.querySelector(".check-in-booked");
+
+        if (oldCheckInDate) {
+          oldCheckInDate.classList.remove("check-in-booked");
+        }
+
+        this.checkInDay = `${this.currentYear}-${
+          this.date.getMonth() + 1
+        }-${i}`;
+        event.classList.add("check-in-booked");
+      } else if (this.checkOutDay === "") {
+        const oldCheckOutDate = document.querySelector(".check-out-booked");
+
+        if (oldCheckOutDate) {
+          oldCheckOutDate.classList.remove("check-out-booked");
+        }
+
+        this.checkOutDay = `${this.currentYear}-${
+          this.date.getMonth() + 1
+        }-${i}`;
+        event.classList.add("check-out-booked");
+
+        this.compareChosenDates();
+        this.markArea();
+      } else if (this.checkOutDay && this.checkInDay) {
+        this.checkInDay = "";
+        this.checkOutDay = "";
+
+        const checkInDate = document.querySelector(".check-in-booked");
+        const checkOutDate = document.querySelector(".check-out-booked");
+
+        checkInDate.classList.remove("check-in-booked");
+        checkOutDate.classList.remove("check-out-booked");
+
+        this.checkInDay = `${this.currentYear}-${
+          this.date.getMonth() + 1
+        }-${i}`;
+        event.classList.add("check-in-booked");
+      }
+    },
+    changeMonth(num) {
+      const currentMonth = this.date.getMonth();
+      const currentYear = this.date.getFullYear();
+      let newDate;
+
+      if (this.changeMonth === 0) {
+        newDate = new Date(currentYear - 1, 11, 1);
+      } else if (this.currentMonth === 11) {
+        newDate = new Date(currentYear + 1, 0, 1);
+      } else {
+        newDate = new Date(currentYear, currentMonth + num, 1);
+      }
+
+      this.date = newDate;
+      this.prepareDate();
+    },
+    compareChosenDates() {
+      // If the check-out date is earlier than check-in, replace each other
+      const checkInTimestamp = this.convertToTimestamp(this.checkInDay);
+      const checkOutTimestamp = this.convertToTimestamp(this.checkOutDay);
+
+      if (checkOutTimestamp < checkInTimestamp) {
+        const oldCheckInDay = this.checkInDay;
+        const oldCheckOutDay = this.checkOutDay;
+
+        this.checkInDay = oldCheckOutDay;
+        this.checkOutDay = oldCheckInDay;
+      }
+    },
+    convertToTimestamp(date) {
+      date = date.split("-");
+      return new Date(date[0], date[1] - 1, date[2]).getTime();
+    },
+    isShouldDisabled(num) {
+      const dayTimeStamp = new Date(
+        this.date.getFullYear(),
+        this.date.getMonth(),
+        num
+      );
+
+      if (this.dateNow > dayTimeStamp.getTime()) {
+        return "date-not-available";
+      } else {
+        return "date-is-available";
+      }
+    },
     prepareDate() {
       this.currentYear = this.date.getFullYear();
       this.currentMonthName = this.months[this.date.getMonth()];
