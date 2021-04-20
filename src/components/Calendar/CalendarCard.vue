@@ -116,6 +116,7 @@ export default {
         this.checkInDay = `${this.currentYear}-${
           this.date.getMonth() + 1
         }-${i}`;
+        this.$store.commit("updateCheckInDay", this.checkInDay);
         event.classList.add("check-in-booked");
       } else if (this.checkOutDay === "") {
         const oldCheckOutDate = document.querySelector(".check-out-booked");
@@ -127,10 +128,10 @@ export default {
         this.checkOutDay = `${this.currentYear}-${
           this.date.getMonth() + 1
         }-${i}`;
+        this.$store.commit("updateCheckOutDay", this.checkOutDay);
         event.classList.add("check-out-booked");
 
         this.compareChosenDates();
-        this.markArea();
       } else if (this.checkOutDay && this.checkInDay) {
         this.checkInDay = "";
         this.checkOutDay = "";
@@ -145,6 +146,9 @@ export default {
           this.date.getMonth() + 1
         }-${i}`;
         event.classList.add("check-in-booked");
+
+        this.$store.commit("updateCheckInDay", this.checkInDay);
+        this.$store.commit("updateCheckOutDay", "");
       }
     },
     changeMonth(num) {
@@ -174,6 +178,9 @@ export default {
 
         this.checkInDay = oldCheckOutDay;
         this.checkOutDay = oldCheckInDay;
+
+        this.$store.commit("updateCheckInDay", this.checkInDay);
+        this.$store.commit("updateCheckOutDay", this.checkOutDay);
       }
     },
     convertToTimestamp(date) {
