@@ -2,18 +2,18 @@
   <div class="calendar">
     <div class="calendar__heading">
       <span class="calendar__price">{{ price }} {{ currency }}</span>
-			<StarsRating :rating="3.55" />
+      <StarsRating :rating="3.55" />
     </div>
     <div class="calendar__main">
       <span class="calendar__title">{{ translationsVerifed["dates"] }}:</span>
       <div class="calendar__fields-box">
         <div class="calendar__trigger">
           <button @click="isCalendarCardActive = !isCalendarCardActive">
-            {{ translationsVerifed["checkIn"] }}
+            {{ checkInDate ? checkInDate : translationsVerifed["checkIn"] }}
           </button>
           <i class="fas fa-arrow-right"></i>
           <button @click="isCalendarCardActive = !isCalendarCardActive">
-            {{ translationsVerifed["checkOut"] }}
+            {{ checkOutDate ? checkOutDate : translationsVerifed["checkOut"] }}
           </button>
         </div>
         <CalendarCard v-show="isCalendarCardActive" />
@@ -25,13 +25,14 @@
 <script>
 import CalendarCard from "./CalendarCard.vue";
 import StarsRating from "@/components/StarsRating/StarsRating.vue";
-
 export default {
-	components: { CalendarCard, StarsRating },
+  components: { CalendarCard, StarsRating },
   name: "Calendar",
-	data() {
+  data() {
     return {
       isCalendarCardActive: false,
+      // checkInDate: "",
+      // checkOutDate: "",
     };
   },
   props: {
@@ -57,7 +58,13 @@ export default {
       };
 
       return Object.assign(defaultTranslations, this.translations);
-    }
+    },
+    checkInDate() {
+      return this.$store.getters.getCheckInDay;
+    },
+    checkOutDate() {
+      return this.$store.getters.getCheckOutDay;
+    },
   },
 };
 </script>
