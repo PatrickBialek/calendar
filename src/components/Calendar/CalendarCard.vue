@@ -139,8 +139,13 @@ export default {
         const checkInDate = document.querySelector(".check-in-booked");
         const checkOutDate = document.querySelector(".check-out-booked");
 
-        checkInDate.classList.remove("check-in-booked");
-        checkOutDate.classList.remove("check-out-booked");
+        if (checkInDate) {
+          checkInDate.classList.remove("check-in-booked");
+        }
+
+        if(checkOutDate) {
+          checkOutDate.classList.remove("check-out-booked");
+        }
 
         this.checkInDay = `${this.currentYear}-${
           this.date.getMonth() + 1
