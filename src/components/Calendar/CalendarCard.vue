@@ -31,9 +31,9 @@
               {{ lastMonthLength - indexOfFirstDay + 1 + i }}
             </span>
             <span
+              v-for="(i, index) in currentMonthLength"
               @click="availabilityChecker($event.target, i)"
               :data-available="isShouldDisabled(i)"
-              v-for="(i, index) in currentMonthLength"
               :key="index + Math.random()"
               class="calendar-card__single-date"
               >{{ i }}</span
@@ -63,36 +63,23 @@ export default {
       lastMonthLength: "",
       dateNow: "",
       dateInCalendar: "",
-      daysOfWeek: [
-        { name: "Sun" },
-        { name: "Mon" },
-        { name: "Tue" },
-        { name: "Wed" },
-        { name: "Thu" },
-        { name: "Fri" },
-        { name: "Sat" },
-      ],
       indexOfFirstDay: "",
       indexOfLastDay: "",
       lastDay: "",
       daysFromNextMonth: "",
-      months: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ],
       checkInDay: "",
       checkOutDay: "",
     };
+  },
+  props: {
+    daysOfWeek: {
+      type: Array,
+      default: () => [],
+    },
+    months: {
+      type: Array,
+      default: () => [],
+    },
   },
   created() {
     this.date = new Date();
@@ -143,7 +130,7 @@ export default {
           checkInDate.classList.remove("check-in-booked");
         }
 
-        if(checkOutDate) {
+        if (checkOutDate) {
           checkOutDate.classList.remove("check-out-booked");
         }
 
