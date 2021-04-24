@@ -16,7 +16,11 @@
             {{ checkOutDate ? checkOutDate : translationsVerifed["checkOut"] }}
           </button>
         </div>
-        <CalendarCard v-show="isCalendarCardActive" />
+        <CalendarCard
+          v-show="isCalendarCardActive"
+          :daysOfWeek="daysOfWeek"
+          :months="months"
+        />
       </div>
     </div>
   </div>
@@ -31,14 +35,20 @@ export default {
   data() {
     return {
       isCalendarCardActive: false,
-      // checkInDate: "",
-      // checkOutDate: "",
     };
   },
   props: {
+    daysOfWeek: {
+      type: Array,
+      default: () => [],
+    },
     currency: {
       type: String,
       required: true,
+    },
+    months: {
+      type: Array,
+      default: () => [],
     },
     price: {
       type: Number,
