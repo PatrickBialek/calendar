@@ -58,7 +58,8 @@ body {
 #app {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
+  padding: 50px;
 }
 </style>
