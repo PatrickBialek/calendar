@@ -2,6 +2,7 @@
   <div id="app">
     <Calendar
       currency="zł"
+      :booked-days="bookedDays"
       :daysOfWeek="daysOfWeek"
       :months="months"
       :price="298"
@@ -16,6 +17,14 @@ import Calendar from "@/components/Calendar/Calendar.vue";
 export default {
   data() {
     return {
+      // example of booked days
+      bookedDays: [
+        { date: "2021-05-21" },
+        { date: "2021-05-31" },
+        { date: "2021-06-20" },
+        { date: "2021-06-21" },
+        { date: "2021-07-05" },
+      ],
       daysOfWeek: [
         { name: "Sun" },
         { name: "Mon" },
