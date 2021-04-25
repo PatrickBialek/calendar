@@ -41,7 +41,7 @@ export default {
   props: {
     bookedDays: {
       type: Array,
-      require: false,
+      required: false,
       default: () => [],
     },
     daysOfWeek: {
