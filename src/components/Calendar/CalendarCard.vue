@@ -72,6 +72,11 @@ export default {
     };
   },
   props: {
+    bookedDays: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
     daysOfWeek: {
       type: Array,
       default: () => [],
@@ -180,13 +185,20 @@ export default {
       return new Date(date[0], date[1] - 1, date[2]).getTime();
     },
     isShouldDisabled(num) {
-      const dayTimeStamp = new Date(
+      const fullDate = new Date(
         this.date.getFullYear(),
         this.date.getMonth(),
         num
       );
 
-      if (this.dateNow > dayTimeStamp.getTime()) {
+      const formatedDate = fullDate.toISOString().slice(0, 10);
+      const isBooked = this.bookedDays.find(
+        (bookedDay) => bookedDay.date === formatedDate
+      );
+
+      if (this.dateNow > fullDate.getTime()) {
+        return "date-not-available";
+      } else if (isBooked) {
         return "date-not-available";
       } else {
         return "date-is-available";

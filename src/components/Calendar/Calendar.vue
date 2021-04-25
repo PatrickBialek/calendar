@@ -18,6 +18,7 @@
         </div>
         <CalendarCard
           v-show="isCalendarCardActive"
+          :bookedDays="bookedDays"
           :daysOfWeek="daysOfWeek"
           :months="months"
         />
@@ -38,6 +39,11 @@ export default {
     };
   },
   props: {
+    bookedDays: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
     daysOfWeek: {
       type: Array,
       default: () => [],
