@@ -8,11 +8,17 @@
       <span class="calendar__title">{{ translationsVerifed["dates"] }}:</span>
       <div class="calendar__fields-box">
         <div class="calendar__trigger">
-          <button @click="isCalendarCardActive = !isCalendarCardActive">
+          <button
+            @click="isCalendarCardActive = !isCalendarCardActive"
+            data-button="check-in"
+          >
             {{ checkInDate ? checkInDate : translationsVerifed["checkIn"] }}
           </button>
           <i class="fas fa-arrow-right"></i>
-          <button @click="isCalendarCardActive = !isCalendarCardActive">
+          <button
+            @click="isCalendarCardActive = !isCalendarCardActive"
+            data-button="check-out"
+          >
             {{ checkOutDate ? checkOutDate : translationsVerifed["checkOut"] }}
           </button>
         </div>
