@@ -1,6 +1,8 @@
 import Vuex from "vuex";
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Calendar from "@/components/Calendar/Calendar.vue";
+import CalendarCard from "@/components/Calendar/CalendarCard.vue";
+import StarsRating from "@/components/StarsRating/StarsRating.vue";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -13,27 +15,30 @@ const store = new Vuex.Store({
 });
 
 describe("Calendar", () => {
-  it("renders a checkout and checking using a real Vuex store", () => {
-    const wrapper = shallowMount(Calendar, {
-      propsData: {
-        currency: "zł",
-        price: 298,
-      },
-      store,
-      localVue,
-    });
+  const wrapper = shallowMount(Calendar, {
+    components: { CalendarCard, StarsRating },
+    propsData: {
+      currency: "zł",
+      price: 298,
+    },
+    store,
+    localVue,
+  });
 
+  test("props testing", () => {
     expect(wrapper.props("currency")).toBe("zł");
     expect(wrapper.props("price")).toBe(298);
+  });
 
+  test("content testing", () => {
     const checkInBtn = wrapper.find("button[data-button='check-in']");
     const checkOutBtn = wrapper.find("button[data-button='check-out']");
 
     expect(checkInBtn.text()).toBe("Check In");
     expect(checkOutBtn.text()).toBe("Check Out");
   });
-});
 
-describe("methods", () => {
-  test();
+  test("snapshop a component", () => {
+    expect(wrapper.html()).toMatchSnapshot();
+  });
 });
