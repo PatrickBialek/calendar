@@ -8,8 +8,15 @@ describe("StarsRating", () => {
     },
   });
 
-  test("stars calculations", () => {
+  test("props testing", () => {
     expect(wrapper.props("rating")).toBe(3.55);
+  });
+
+  test("stars calculations", () => {
     expect(StarsRating.computed.starsHandler.call({ rating: 3.55 })).toBe(71);
+  });
+
+  test("snapshop a component", () => {
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });
